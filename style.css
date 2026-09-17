@@ -125,9 +125,9 @@ em.s,h2 em{font-family:"Playfair Display",Georgia,serif;color:var(--sage);font-w
 
 .cta{background:var(--ink);color:#fff;padding:100px 8vw;text-align:center;position:relative;z-index:1}
 .cta>div{max-width:850px;margin:auto}.cta h2{color:#fff;font-size:clamp(38px,4.4vw,56px);line-height:1.1;margin:14px 0}
-.cta em{color:#a8b79f}
-.cta .eyebrow{color:#c8d2c1}.cta .eyebrow:before{background:#c8d2c1}
-.cta p{color:#c6cdc6;margin:0 auto 28px;max-width:560px}
+.cta em{color:#e8b4a0}
+.cta .eyebrow{color:#f0c9a8}
+.cta .eyebrow:before{background:#f0c9a8}
 
 footer{padding:28px 8vw;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;gap:12px;flex-wrap:wrap}
 footer .brand{color:var(--ink)}
