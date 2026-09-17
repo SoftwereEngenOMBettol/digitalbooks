@@ -18,7 +18,49 @@ html,body{overflow-x:hidden}
 }
 
 body{font-family:var(--font-ar);background:var(--bg);color:var(--ink);min-height:100vh;position:relative;-webkit-font-smoothing:antialiased}
+/* ===== قسم الفيديو ===== */
+.video-section{
+  padding:100px 4vw;
+  max-width:1200px;
+  margin:0 auto;
+  text-align:center;
+  position:relative;
+  z-index:1;
+}
+.video-section h2{
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:900;
+  margin-bottom:10px;
+  background:linear-gradient(135deg,var(--ink) 0%,var(--pink) 50%,var(--purple) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.video-section .sub{
+  color:var(--muted);
+  font-size:1.05rem;
+  margin-bottom:36px;
+}
+.video-frame{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(15,15,20,.15),0 0 0 1px rgba(0,0,0,.04);
+  background:#0a0a10;
+}
+.video-frame video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
 
+@media (max-width:640px){
+  .video-section{padding:70px 5vw}
+  .video-frame{aspect-ratio:9/16;border-radius:18px}
+}
 /* ============ 1. الخلفية - كرات لونية هادئة فقط ============ */
 .aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;filter:blur(100px);opacity:.5;background:#fafbfc}
 .aurora span{position:absolute;width:55vmax;height:55vmax;border-radius:50%;will-change:transform;mix-blend-mode:multiply}
