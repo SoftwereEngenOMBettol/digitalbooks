@@ -18,48 +18,35 @@ html,body{overflow-x:hidden}
 }
 
 body{font-family:var(--font-ar);background:var(--bg);color:var(--ink);min-height:100vh;position:relative;-webkit-font-smoothing:antialiased}
-/* ===== قسم الفيديو ===== */
-.video-section{
-  padding:100px 4vw;
-  max-width:1200px;
-  margin:0 auto;
-  text-align:center;
-  position:relative;
-  z-index:1;
-}
-.video-section h2{
-  font-size:clamp(2rem,4vw,3rem);
-  font-weight:900;
-  margin-bottom:10px;
-  background:linear-gradient(135deg,var(--ink) 0%,var(--pink) 50%,var(--purple) 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.video-section .sub{
-  color:var(--muted);
-  font-size:1.05rem;
-  margin-bottom:36px;
-}
-.video-frame{
-  position:relative;
-  width:100%;
-  aspect-ratio:16/9;
-  border-radius:24px;
+/* ===== فيديو الخلفية ===== */
+.bg-video-wrap{
+  position:fixed;
+  inset:0;
+  z-index:0;
   overflow:hidden;
-  box-shadow:0 40px 80px rgba(15,15,20,.15),0 0 0 1px rgba(0,0,0,.04);
-  background:#0a0a10;
+  pointer-events:none;
 }
-.video-frame video{
-  width:100%;
-  height:100%;
+.bg-video{
+  position:absolute;
+  top:50%; left:50%;
+  min-width:100%;
+  min-height:100%;
+  width:auto;
+  height:auto;
+  transform:translate(-50%,-50%);
   object-fit:cover;
-  display:block;
+  filter:blur(1px) saturate(140%);
+  opacity:.35;
 }
-
-@media (max-width:640px){
-  .video-section{padding:70px 5vw}
-  .video-frame{aspect-ratio:9/16;border-radius:18px}
+.bg-video-overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    180deg,
+    rgba(250,251,252,.75) 0%,
+    rgba(250,251,252,.55) 50%,
+    rgba(250,251,252,.85) 100%
+  );
 }
 /* ============ 1. الخلفية - كرات لونية هادئة فقط ============ */
 .aurora{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;filter:blur(100px);opacity:.5;background:#fafbfc}
@@ -171,7 +158,15 @@ footer .mark{display:grid;place-items:center;width:28px;height:28px;border-radiu
 </style>
 </head>
 <body>
-
+<!-- ===== فيديو الخلفية ===== -->
+<div class="bg-video-wrap">
+  <video class="bg-video" autoplay muted loop playsinline preload="auto"
+         poster="images/video-poster.jpg">
+    <source src="videos/colors.mp4" type="video/mp4">
+    <source src="videos/colors.webm" type="video/webm">
+  </video>
+  <div class="bg-video-overlay"></div>
+</div>
 <!-- كرات لونية هادئة فقط -->
 <div class="aurora" aria-hidden="true">
   <span></span><span></span><span></span><span></span><span></span><span></span>
@@ -238,13 +233,7 @@ footer .mark{display:grid;place-items:center;width:28px;height:28px;border-radiu
         <p class="price">$10.00</p>
         <a class="add-cart" href="https://herewe.gumroad.com/l/coloringbook1" target="_blank" rel="noopener">Add to Cart</a>
       </div>
-<div class="video-frame">
-    <video controls muted loop playsinline preload="metadata"
-           poster="assets/video-poster.jpg">
-      <source src="assets/colors.mp4" type="video/mp4">
-      <source src="asstes/colors.webm" type="video/webm">
-      متصفحك لا يدعم تشغيل الفيديو.
-    </video>
+
       <div class="book-card">
         <div class="book-cover">
           <span class="tag">DIGITAL</span>
