@@ -1,83 +1,474 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap');
-:root{--bg:#f5f0e7;--paper:#fffdf8;--ink:#1e2921;--muted:#70776e;--sage:#65765e;--sage2:#dfe5d8;--line:#d9ddd4}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Cairo,Arial,sans-serif;line-height:1.7}
-a{text-decoration:none;color:inherit}a:hover{color:var(--sage)}
-img{display:block;max-width:100%}
-.nav{min-height:80px;padding:12px 7vw;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:#f5f0e7e8;backdrop-filter:blur(15px)}
-.brand{font-weight:800;letter-spacing:2px;display:flex;align-items:center;gap:9px}
-.mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--sage);color:#fff;font-family:Georgia,serif;font-weight:400}
-.nav nav{display:flex;gap:28px;font-size:14px;color:#50594f;flex-wrap:wrap}
-.navtools{display:flex;align-items:center;gap:10px}
-#lang{min-height:44px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);font:800 12px Cairo,sans-serif;color:var(--ink);cursor:pointer;letter-spacing:1px}
-#lang:hover{border-color:var(--sage);color:var(--sage)}
-.navbtn{display:grid;place-items:center;min-height:44px;border:1px solid var(--ink);padding:0 18px;border-radius:999px;font-size:13px;font-weight:800}
-.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:800}
-.eyebrow:before{content:"";display:inline-block;width:27px;height:1px;background:var(--sage);vertical-align:middle;margin-inline-end:9px}
-.hero{padding:70px 8vw 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:center;gap:5vw}
-.copy{max-width:680px;min-width:0}
-.hero h1{font-size:clamp(42px,5.6vw,76px);line-height:1.08;letter-spacing:-1.5px;margin:20px 0}
-em.s,h2 em{font-family:"Playfair Display",Georgia,serif;color:var(--sage);font-weight:500}
-.hero p{color:var(--muted);font-size:18px;max-width:580px}
-.actions{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
-.btn{display:grid;place-items:center;min-height:48px;padding:0 24px;border-radius:999px;font-weight:800;font-size:14px;border:1px solid var(--line);background:var(--paper)}
-.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
-.btn.light{background:#fff;color:var(--ink);border-color:#fff;display:inline-grid;padding:0 26px}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-.chips span{display:inline-flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-size:12px;font-weight:600}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--sage)}
-.hero-art{min-height:500px;position:relative;display:grid;place-items:center;min-width:0}
-.blob{position:absolute;width:420px;height:420px;max-width:92%;border-radius:50%;background:var(--sage2)}
-.cov-back{position:absolute;width:250px;max-width:52%;border-radius:12px;box-shadow:0 25px 55px #26312522;transform:rotate(9deg) translate(28px,14px)}
-.cov-front{position:relative;width:300px;max-width:62%;border-radius:14px;box-shadow:0 30px 60px #26312533;transform:rotate(-5deg)}
-.note{position:absolute;bottom:0;inset-inline-start:2%;background:var(--paper);padding:14px 18px;border-radius:14px;box-shadow:0 15px 35px #26312512;transform:rotate(-4deg);font-size:12px;max-width:60%}
-.marquee{background:var(--sage);color:#fff;padding:13px;white-space:nowrap;overflow:hidden;text-align:center;font-size:11px;letter-spacing:4px}
-.section{padding:100px 8vw}
-.sectionhead{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:6vw;align-items:end;margin-bottom:46px}
-.sectionhead h2,.split h2,.cta h2{font-size:clamp(38px,4.4vw,56px);line-height:1.1;margin:14px 0}
-.sectionhead p,.split p,.cta p{color:var(--muted);font-size:16px;max-width:560px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:.3s;display:flex;flex-direction:column;min-width:0}
-.card:hover{transform:translateY(-7px);box-shadow:0 20px 45px #26312512}
-.cover{position:relative;height:300px;overflow:hidden;background:#e2e7dc;display:grid;place-items:center}
-.cover img{width:100%;height:100%;object-fit:cover;object-position:top}
-.slot{width:100%;height:100%;display:grid;place-items:center;text-align:center;padding:20px;background:repeating-linear-gradient(135deg,#e4e9df 0 10px,#dce2d6 10px 20px);font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#5d675a}
-.cover .tag{position:absolute;top:14px;inset-inline-end:14px;font-size:9px;letter-spacing:1px;font-weight:800;background:#fffdf8ee;padding:6px 10px;border-radius:999px}
-.info{padding:20px;display:flex;flex-direction:column;flex:1}
-.info>.row{display:flex;justify-content:space-between;gap:8px}
-.info h3{font-size:17px;line-height:1.4;margin:0}
-.info .price{color:var(--sage);white-space:nowrap;font-weight:700}
-.info p{font-size:12px;color:var(--muted);margin:10px 0 16px}
-.info .btns{margin-top:auto;display:flex;flex-direction:column;gap:8px}
-.buy{display:grid;place-items:center;min-height:46px;background:var(--ink);color:#fff;border-radius:12px;font-size:13px;font-weight:800}
-.prev{min-height:44px;background:var(--paper);border:1px solid var(--line);border-radius:12px;font:800 12px Cairo,sans-serif;color:var(--ink);cursor:pointer}
-.prev:hover{border-color:var(--sage);color:var(--sage)}
-.how{padding:90px 8vw;background:#ece8de}
-.how h2{font-size:clamp(34px,3.6vw,48px);line-height:1.15;margin:14px 0 40px;max-width:720px}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.steps>div{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:10px;min-width:0}
-.steps b{font-family:Georgia,serif;color:var(--sage);font-size:28px;font-weight:400}
-.steps strong{font-size:17px}.steps small{font-size:13px;color:var(--muted)}
-.split{padding:100px 8vw;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:6vw;align-items:center}
-.features{margin-top:28px;display:flex;flex-direction:column}
-.features>div{display:flex;gap:18px;padding:16px 0;border-top:1px solid #cfd5ca}
-.features b{font-family:Georgia,serif;color:var(--sage)}
-.features span{display:flex;flex-direction:column}
-.features strong{font-size:14px}.features small{font-size:12px;color:var(--muted)}
-.visual img{width:100%;max-width:520px;margin:auto;border-radius:20px;border:1px solid var(--line);box-shadow:0 30px 70px #33412d22}
-.cta{background:var(--ink);color:#fff;padding:100px 8vw;text-align:center}
-.cta>div{max-width:850px;margin:auto}.cta h2{color:#fff}.cta em{color:#a8b79f}
-.cta .eyebrow{color:#c8d2c1}.cta .eyebrow:before{background:#c8d2c1}
-.cta p{color:#c6cdc6;margin:0 auto 28px}
-footer{padding:28px 8vw;display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:11px;gap:12px;flex-wrap:wrap}
-footer .brand{color:var(--ink)}
-.modal{position:fixed;inset:0;z-index:40;background:#1e292199;backdrop-filter:blur(4px);display:grid;place-items:center;padding:24px}
-.modal[hidden]{display:none}
-.sheet{background:var(--paper);border-radius:22px;max-width:920px;width:100%;max-height:86vh;overflow:auto;padding:28px;box-shadow:0 40px 90px #1e29214d}
-.sheethead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
-.sheet h3{margin:6px 0 0;font-size:22px}
-.sheet .note2{color:var(--muted);font-size:13px;margin:10px 0 20px}
-#close{min-width:44px;min-height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);font-size:16px;cursor:pointer;color:var(--ink)}
-.pages{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
-.pages div{aspect-ratio:3/4;border-radius:14px;border:1px solid var(--line);background:repeating-linear-gradient(135deg,#f1eee6 0 10px,#e8e4da 10px 20px);display:grid;place-items:center;text-align:center;padding:16px;font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#5d675a}
-.sheet .buy{margin-top:22px}
+/* ===== إعادة تعيين أساسية ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+    --bg-white: #fcfcfd;
+    --bg-card: #ffffff;
+    --text-dark: #1a1a2e;
+    --text-gray: #6b7280;
+    --accent-1: #ff6b9d;
+    --accent-2: #4ecdc4;
+    --accent-3: #a78bfa;
+    --accent-4: #feca57;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+    --shadow-md: 0 8px 30px rgba(0,0,0,0.08);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,0.12);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 30px;
+    --font-main: 'Cairo', sans-serif;
+    --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ===== الخلفية السائلة ===== */
+fluid-shader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.85;
+}
+
+/* ===== شريط التنقل ===== */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 2rem;
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.75);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition);
+}
+
+.navbar.scrolled {
+    padding: 0.6rem 2rem;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 900;
+    font-size: 1.4rem;
+}
+
+.logo-icon { font-size: 1.8rem; }
+.logo-text { background: linear-gradient(135deg, var(--accent-1), var(--accent-3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-gray);
+    font-weight: 600;
+    font-size: 1rem;
+    position: relative;
+    padding: 0.3rem 0;
+    transition: var(--transition);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-dark);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+.lang-btn {
+    background: none;
+    border: 2px solid var(--accent-1);
+    color: var(--accent-1);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    background: var(--accent-1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-dark);
+}
+
+/* ===== القسم الرئيسي ===== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8rem 4rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 4rem;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--text-dark) 0%, var(--text-dark) 50%, var(--accent-1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.hero-description {
+    font-size: 1.3rem;
+    color: var(--text-gray);
+    margin-bottom: 0.5rem;
+}
+
+.hero-tagline {
+    font-size: 1.1rem;
+    color: var(--accent-1);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-main);
+}
+
+.cta-button.primary {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-3));
+    color: white;
+    box-shadow: 0 8px 25px rgba(255, 107, 157, 0.35);
+}
+
+.cta-button.primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(255, 107, 157, 0.5);
+}
+
+.cta-button.secondary {
+    background: white;
+    color: var(--text-dark);
+    border: 2px solid rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
+}
+
+.cta-button.secondary:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-2);
+}
+
+.hero-visual {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book-showcase {
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    perspective: 1500px;
+}
+
+/* ===== شبكة الكتب ===== */
+.books-section {
+    padding: 5rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+}
+
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.book-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: var(--transition);
+    will-change: transform;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3), var(--accent-4));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 107, 157, 0.2);
+}
+
+.book-card:hover::before {
+    opacity: 1;
+}
+
+.book-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    transition: transform 0.4s ease;
+}
+
+.book-card:hover img {
+    transform: scale(1.05);
+}
+
+.book-card h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    color: var(--text-dark);
+}
+
+.book-card .price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-1);
+    margin-bottom: 1rem;
+}
+
+.book-card .add-to-cart {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--accent-1);
+    background: transparent;
+    color: var(--accent-1);
+    border-radius: 50px;
+    font-weight: 700;
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.book-card .add-to-cart:hover {
+    background: var(--accent-1);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* ===== قسم التلوين التفاعلي ===== */
+.interactive-section {
+    padding: 5rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.coloring-area {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+#coloring-svg {
+    width: 100%;
+    height: auto;
+    cursor: crosshair;
+    border-radius: var(--radius-sm);
+}
+
+.coloring-hint {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+}
+
+/* ===== قسم عن المتجر ===== */
+.about-section {
+    padding: 5rem 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content p {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+}
+
+/* ===== الفوتر ===== */
+.footer {
+    padding: 3rem 4rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0,0,0,0.04);
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 900;
+    font-size: 1.3rem;
+}
+
+.footer-copy {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+}
+
+/* ===== فئات مساعدة ===== */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+/* ===== التجاوب مع الشاشات ===== */
+@media (max-width: 1024px) {
+    .hero-section { flex-direction: column; padding: 6rem 2rem 2rem; text-align: center; }
+    .hero-title { font-size: 3.5rem; }
+    .hero-buttons { justify-content: center; }
+    .hero-visual { max-width: 400px; }
+    .book-showcase { height: 400px; }
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 0.8rem 1rem; }
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 1rem; box-shadow: var(--shadow-md); gap: 1rem; }
+    .menu-toggle { display: block; }
+    .hero-title { font-size: 2.8rem; }
+    .hero-subtitle { font-size: 1.5rem; }
+    .books-section, .interactive-section, .about-section { padding: 3rem 1.5rem; }
+    .section-title { font-size: 2.2rem; }
+    .books-grid { grid-template-columns: 1fr; }
+    .footer-content { flex-direction: column; text-align: center; }
+}
+
+/* ===== احترام تفضيلات المستخدم ===== */
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+}
