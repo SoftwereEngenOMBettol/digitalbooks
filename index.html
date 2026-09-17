@@ -1,125 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Books | متجر كتب التلوين</title>
-    <!-- الخطوط -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <!-- مكتبات خارجية -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script type="module" src="https://unpkg.com/fluid-shader@latest/dist/fluid-shader.umd.cjs"></script>
-    <script type="module" src="script.js"></script>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="HEREWE — كتب تلوين للصغار والكبار ومنتجات رقمية عملية.">
+<title>HEREWE — Digital Products</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- الخلفية السائلة -->
-    <fluid-shader preset="cotton" speed="0.1" grain="0.05" interaction="0.3" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.9;"></fluid-shader>
 
-    <!-- شريط التنقل -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-icon">🎨</span>
-                <span class="logo-text">Digital Books</span>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link active">الرئيسية</a></li>
-                <li><a href="#books" class="nav-link">الكتب</a></li>
-                <li><a href="#about" class="nav-link">عن المتجر</a></li>
-                <li><a href="#catalog" class="nav-link">طلب كتالوج</a></li>
-            </ul>
-            <button class="lang-btn" id="lang-toggle">EN</button>
-            <button class="menu-toggle" id="menu-toggle">☰</button>
-        </div>
-    </nav>
+<!-- طبقة الألوان المتحركة -->
+<div class="aurora" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
 
-    <!-- القسم الرئيسي (Hero) -->
-    <header id="home" class="hero-section">
-        <div class="hero-content">
-            <h1 class="hero-title">لوّن عالمك</h1>
-            <h2 class="hero-subtitle">متجر كتب تلوين</h2>
-            <p class="hero-description">أطلق عنان إبداعك بالألوان</p>
-            <p class="hero-tagline">تجربة تلوين فاخرة ومختارة</p>
-            <div class="hero-buttons">
-                <a href="#books" class="cta-button primary">استكشف الكتب</a>
-                <a href="#interactive" class="cta-button secondary">جرّب التلوين</a>
-            </div>
-        </div>
-        <div class="hero-visual">
-            <div class="book-showcase" id="book-3d-container">
-                <!-- سيتم إدراج الكتاب ثلاثي الأبعاد هنا -->
-            </div>
-        </div>
-    </header>
+<!-- مؤشر الماوس السائل -->
+<canvas id="cursor-canvas"></canvas>
 
-    <!-- شبكة الكتب -->
-    <section id="books" class="books-section">
-        <div class="section-header">
-            <h2 class="section-title">مجموعة الكتب</h2>
-            <p class="section-subtitle">اختر من بين مجموعة متنوعة من كتب التلوين</p>
-        </div>
-        <div class="books-grid">
-            <!-- سيتم توليد البطاقات بواسطة JS -->
-        </div>
-    </section>
+<header class="nav">
+  <a class="brand" href="#top"><span class="mark">H</span> HEREWE</a>
 
-    <!-- قسم تفاعلي للتلوين -->
-    <section id="interactive" class="interactive-section">
-        <div class="section-header">
-            <h2 class="section-title">جرّب التلوين بنفسك</h2>
-            <p class="section-subtitle">المس الرسمة ولونها بالألوان</p>
-        </div>
-        <div class="coloring-area">
-            <svg viewBox="0 0 300 300" id="coloring-svg">
-                <!-- الرسمة المفرغة (ماندالا بسيطة) -->
-                <g id="line-art" fill="none" stroke="#333" stroke-width="2">
-                    <circle cx="150" cy="150" r="120"/>
-                    <circle cx="150" cy="150" r="90"/>
-                    <circle cx="150" cy="150" r="60"/>
-                    <circle cx="150" cy="150" r="30"/>
-                    <path d="M150,30 L150,270 M30,150 L270,150 M75,75 L225,225 M225,75 L75,225"/>
-                </g>
-                <!-- طبقة الألوان (تظهر عبر القناع) -->
-                <defs>
-                    <mask id="color-mask">
-                        <rect id="mask-rect" x="0" y="0" width="300" height="300" fill="black"/>
-                    </mask>
-                    <radialGradient id="rainbow-gradient" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#ff6b9d"/>
-                        <stop offset="25%" stop-color="#4ecdc4"/>
-                        <stop offset="50%" stop-color="#a78bfa"/>
-                        <stop offset="75%" stop-color="#feca57"/>
-                        <stop offset="100%" stop-color="#ff6b9d"/>
-                    </radialGradient>
-                </defs>
-                <rect x="0" y="0" width="300" height="300" fill="url(#rainbow-gradient)" mask="url(#color-mask)"/>
-            </svg>
-            <p class="coloring-hint">اضغط واسحب للتلوين</p>
-        </div>
-    </section>
+  <nav class="mainnav">
+    <a href="#top" data-i18n="navHome">الرئيسية</a>
 
-    <!-- قسم عن المتجر -->
-    <section id="about" class="about-section">
-        <div class="about-content">
-            <h2 class="section-title">عن Digital Books</h2>
-            <p>نقدم مجموعة مختارة من كتب التلوين الفاخرة للبالغين والأطفال. كل كتاب مصمم بعناية ليمنحك تجربة إبداعية وهادئة.</p>
-        </div>
-    </section>
+    <div class="has-drop">
+      <a href="#books" class="drop-toggle" data-i18n="navBooks">
+        كتب <span class="caret">▾</span>
+      </a>
+      <div class="drop">
+        <a href="#kids" data-i18n="navKids">تلوين الصغار</a>
+        <a href="#adults" data-i18n="navAdults">تلوين الكبار</a>
+      </div>
+    </div>
 
-    <!-- الفوتر -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <span class="logo-icon">🎨</span>
-                <span class="logo-text">Digital Books</span>
-            </div>
-            <p class="footer-copy">© 2026 Digital Books. جميع الحقوق محفوظة.</p>
-        </div>
-    </footer>
-</body>
-</html>
+    <a href="#how" data-i18n="navHow">كيف يعمل</a>
+    <a href="#about" data-i18n="navAbout">عن المتجر</a>
+  </nav>
+
+  <div class="navtools">
+    <button id="lang">EN</button>
+    <a class="navbtn" href="#books" data-i18n="navCta">استكشف الكتب ↘</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="copy">
+    <div class="eyebrow" data-i18n="eyebrow">منتجات رقمية صُنعت للاستمتاع</div>
+    <h1><span data-i18n="h1a">وقت فراغك يمكن أن يكون</span><br><em class="s" data-i18n="h1b">أكثر إبداعًا.</em></h1>
+    <p data-i18n="heroP">كتب تلوين للصغار والكبار، ودلائل رقمية عملية — افتح، ابدأ، واستمتع.</p>
+    <div class="actions">
+      <a class="btn dark" href="#books" data-i18n="ctaPrimary">اكتشف المجموعة ↓</a>
+      <a class="btn" href="#how" data-i18n="ctaSecondary">كيف يعمل الشراء؟</a>
+    </div>
+    <div class="chips">
+      <span><i class="dot"></i><b data-i18n="trust1">تحميل فوري بعد الدفع</b></span>
+      <span><i class="dot"></i><b data-i18n="trust2">دفع آمن عبر Gumroad</b></span>
+      <span><i class="dot"></i><b data-i18n="trust3">ملف PDF جاهز للطباعة</b></span>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="blob"></div>
+    <!-- ⚠️ استبدل هاتين الصورتين بصور الأغلفة الحقيقية -->
+    <img class="cov-back" src="assets/cover-kids.png" alt="Kids Coloring Book">
+    <img class="cov-front" src="assets/cover-adult-kids.png" alt="Adult & Kids Coloring Book">
+    <div class="note"><span data-i18n="noteA">خذ استراحة</span><br><b data-i18n="noteB">ولَوّن شيئًا جميلًا.</b></div>
+  </div>
+</section>
+
+<div class="marquee">COLOR • RELAX • CREATE • UNPLUG • ENJOY • COLOR • RELAX • CREATE • UNPLUG • ENJOY •</div>
+
+<!-- ====== كتب تلوين الصغار ====== -->
+<section class="section" id="kids">
+  <div class="sectionhead">
+    <div>
+      <div class="eyebrow" data-i18n="kidsEyebrow">لأصغر الفنانين</div>
+      <h2><span data-i18n="kidsH2a">كتب تلوين</span><br><em data-i18n="kidsH2b">الصغار.</em></h2>
+    </div>
+    <p data-i18n="kidsP">رسومات بسيطة ومرحة ومستويات سهلة، مصممة خصيصًا لتُناسب أيدي الأطفال وتُنمّي خيالهم.</p>
+  </div>
+  <div class="grid" id="gridKids"><!-- تُبنى ديناميكيًا من JS --></div>
+</section>
+
+<!-- ====== كتب تلوين الكبار ====== -->
+<section class="section section-alt" id="adults">
+  <div class="sectionhead">
+    <div>
+      <div class="eyebrow" data-i18n="adultsEyebrow">استرخاء وإبداع</div>
+      <h2><span data-i18n="adultsH2a">كتب تلوين</span><br><em data-i18n="adultsH2b">الكبار.</em></h2>
+    </div>
+    <p data-i18n="adultsP">تفاصيل غنية وأنماط ماندالا وزخارف تنقلك إلى عالم من الهدوء والتركيز بعيدًا عن ضجيج اليوم.</p>
+  </div>
+  <div class="grid" id="gridAdults"><!-- تُبنى ديناميكيًا من JS --></div>
+</section>
+
+<!-- ====== منتجات رقمية ====== -->
+<section class="section" id="books">
+  <div class="sectionhead">
+    <div>
+      <div class="eyebrow" data-i18n="digitalEyebrow">منتجات رقمية</div>
+      <h2><span data-i18n="digitalH2a">دلائل</span><br><em data-i18n="digitalH2b">عملية.</em></h2>
+    </div>
+    <p data-i18n="digitalP">دليل عملي يأخذك خطوة بخطوة من الفكرة إلى بناء منتج رقمي وبيعه على Gumroad.</p>
+  </div>
+  <div class="grid" id="gridDigital"><!-- تُبنى ديناميكيًا من JS --></div>
+</section>
+
+<section class="how" id="how">
+  <div class="eyebrow" data-i18n="howEyebrow">كيف يعمل</div>
+  <h2 data-i18n="howH2">ثلاث خطوات بين اختيارك للكتاب وأول صفحة تلوّنها.</h2>
+  <div class="steps">
+    <div><b>01</b><strong data-i18n="step1t">اختر كتابك</strong><small data-i18n="step1d">تصفّح المجموعة، واطّلع على صفحات من داخل الكتاب قبل الشراء.</small></div>
+    <div><b>02</b><strong data-i18n="step2t">أتمم الدفع على Gumroad</strong><small data-i18n="step2d">يتم نقلك إلى صفحة المنتج على Gumroad لإتمام الدفع بأمان.</small></div>
+    <div><b>03</b><strong data-i18n="step3t">حمّل ولوّن فورًا</strong><small data-i18n="step3d">يصلك ملف PDF مباشرة بعد الدفع — اطبعه أو لوّنه على جهازك.</small></div>
+  </div>
+</section>
+
+<section class="cta" id="about">
+  <div>
+    <div class="eyebrow">HEREWE DIGITAL</div>
+    <h2><span data-i18n="ctaH2a">شيء صغير اليوم،</span><br><em data-i18n="ctaH2b">يصنع فرقًا في وقتك.</em></h2>
+    <p data-i18n="ctaP">اختر كتابك، اضغط على الشراء، وسيتم نقلك إلى صفحة المنتج على Gumroad لإتمام الدفع.</p>
+    <a class="btn light" href="#books" data-i18n="ctaBtn">تصفح المجموعة ↗</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="brand"><span class="mark">H</span> HEREWE</div>
+  <span>Digital products for creative moments.</span>
+  <span>© 2026 HEREWE</span>
+</footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="sheet">
+    <div class="sheethead">
+      <div>
+        <div class="eyebrow" data-i18n="previewEyebrow">من داخل الكتاب</div>
+        <h3 id="modal-title"></h3>
+      </div>
+      <button id="close" aria-label="close">✕</button>
+    </div>
+    <p class="note2" data-i18n="previewNote">صفحات نموذجية من الكتاب. ضع هنا صورًا حقيقية من الملف لتزيد ثقة المشتري.</p>
+    <div class="pages">
+      <div data-i18n="slot1">صفحة نموذجية 1</div>
+      <div data-i18n="slot2">صفحة نموذجية 2</div>
+      <div data-i18n="slot3">صفحة نموذجية 3</div>
+    </div>
+    <a class="buy" id="modal-buy" href="#" target="_blank" rel="noopener" data-i18n="buy">شاهد المنتج واشترِ ↗</a>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body></html>
