@@ -6,7 +6,7 @@
   var canvas = document.getElementById('cursor-canvas');
   if(!canvas) return;
   var ctx = canvas.getContext('2d');
-  var palette = ['#ffb4a2','#b8d8be','#e8d5a8','#f5c6d6','#c9e0d2'];
+  var palette = ['#ffb4a2','#f5c6d6','#e8d5a8','#f0c9a8','#e8b4a0','#ff6b9d','#a78bfa'];
   var particles = [];
 
   function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
