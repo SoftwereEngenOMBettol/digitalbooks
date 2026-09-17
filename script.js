@@ -1,72 +1,5 @@
 /* ============================================================
-   1. البيانات: كل الكتب مع روابط الشراء
-   ⚠️ عدّل الروابط والعناوين كما تريد
-============================================================ */
-var BOOKS = {
-  kids: [
-    { title_ar:'تلوين الصغار 1', title_en:'Kids Coloring 1', price:'$15',
-      desc_ar:'رسومات بسيطة ومحببة للأطفال الصغار.', desc_en:'Simple, lovable drawings for young children.',
-      cover:'assets/cover-kids.png', url:'https://herewe.gumroad.com/l/coloringbook1' },
-    { title_ar:'تلوين الصغار 2', title_en:'Kids Coloring 2', price:'$17',
-      desc_ar:'حيوانات، فواكه، ومركبات لتلوينها بمرح.', desc_en:'Animals, fruits, and vehicles to color happily.',
-      cover:'assets/cover-kids2.png', url:'https://herewe.gumroad.com/l/coloringbook2' },
-    { title_ar:'تلوين الصغار 3', title_en:'Kids Coloring 3', price:'$19',
-      desc_ar:'مستوى متوسط مع تفاصيل أكثر تشويقًا.', desc_en:'Intermediate level with more exciting details.',
-      cover:'', url:'https://herewe.gumroad.com/l/colorinbook3' }
-  ],
-  adults: [
-    { title_ar:'تلوين الكبار 1', title_en:'Adult Coloring 1', price:'$20',
-      desc_ar:'ماندالا وأنماط هندسية للاسترخاء.', desc_en:'Mandalas and geometric patterns to relax.',
-      cover:'assets/cover-adult-kids.png', url:'https://herewe.gumroad.com/l/coloringbook1' },
-    { title_ar:'تلوين الكبار 2', title_en:'Adult Coloring 2', price:'$22',
-      desc_ar:'زخارف إسلامية وتفاصيل دقيقة.', desc_en:'Islamic ornaments and fine details.',
-      cover:'', url:'https://herewe.gumroad.com/l/coloringbook2' },
-    { title_ar:'تلوين الكبار 3', title_en:'Adult Coloring 3', price:'$24',
-      desc_ar:'طبيعة ومناظر هادئة بأسلوب فني.', desc_en:'Nature and calm scenes in artistic style.',
-      cover:'', url:'https://herewe.gumroad.com/l/colorinbook3' }
-  ],
-  digital: [
-    { title_ar:'من فكرة إلى بيع منتج رقمي', title_en:'From Idea to First Sale', price:'$20',
-      desc_ar:'دليل عملي من الفكرة إلى Gumroad والتسويق.', desc_en:'Practical guide from idea to Gumroad and marketing.',
-      cover:'assets/guide-idea-to-sale.png', url:'https://herewe.gumroad.com/l/digitalbook' }
-  ]
-};
-
-/* ============================================================
-   2. بناء بطاقات الكتب ديناميكيًا
-============================================================ */
-function cardHTML(b, i, group){
-  var lang = document.documentElement.lang || 'ar';
-  var title = lang === 'ar' ? b.title_ar : b.title_en;
-  var desc  = lang === 'ar' ? b.desc_ar  : b.desc_en;
-  var cover = b.cover
-    ? `<img src="${b.cover}" alt="${title}" onerror="this.parentElement.innerHTML='<div class=\\'slot\\'>ضع صورة الغلاف هنا</div>'">`
-    : `<div class="slot">ضع صورة الغلاف هنا</div>`;
-  return `
-    <article class="card">
-      <div class="cover">${cover}<span class="tag">DIGITAL</span></div>
-      <div class="info">
-        <div class="row"><h3>${title}</h3><span class="price">${b.price}</span></div>
-        <p>${desc}</p>
-        <div class="btns">
-          <a class="buy" href="${b.url}" target="_blank" rel="noopener" data-i18n="buy">شاهد المنتج واشترِ ↗</a>
-          <button class="prev" data-group="${group}" data-i="${i}" data-i18n="preview">معاينة صفحات من الكتاب</button>
-        </div>
-      </div>
-    </article>`;
-}
-
-function renderGrids(){
-  ['kids','adults','digital'].forEach(function(g){
-    var el = document.getElementById('grid' + g.charAt(0).toUpperCase() + g.slice(1));
-    if(!el) return;
-    el.innerHTML = BOOKS[g].map(function(b,i){ return cardHTML(b,i,g); }).join('');
-  });
-  bindPreviewButtons();
-}
-
-/* ============================================================
-   3. مؤشر الماوس السائل
+   1. ✅ جديد: مؤشر الماوس السائل
 ============================================================ */
 (function initCursor(){
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -77,9 +10,9 @@ function renderGrids(){
   var particles = [];
 
   function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
-  resize(); addEventListener('resize', resize);
+  resize(); window.addEventListener('resize', resize);
 
-  addEventListener('mousemove', function(e){
+  window.addEventListener('mousemove', function(e){
     if (Math.random() < 0.5) {
       particles.push({
         x: e.clientX + (Math.random()-.5)*10,
@@ -113,7 +46,75 @@ function renderGrids(){
 })();
 
 /* ============================================================
-   4. الترجمة (AR / EN)
+   2. ✅ جديد: بيانات الكتب (عدّل الروابط والعناوين من هنا)
+   ⚠️ ضع اسم صورة الغلاف في cover، وإذا تركتها فارغة ''
+       سيظهر مربع رمادي مكتوب عليه "ضع صورة الغلاف هنا"
+============================================================ */
+var BOOKS = {
+  kids: [
+    { title_ar:'تلوين الصغار 1', title_en:'Kids Coloring 1', price:'$15',
+      desc_ar:'رسومات بسيطة ومحببة للأطفال الصغار.', desc_en:'Simple, lovable drawings for young children.',
+      cover:'assets/cover-kids.png', url:'https://herewe.gumroad.com/l/coloringbook1' },
+    { title_ar:'تلوين الصغار 2', title_en:'Kids Coloring 2', price:'$17',
+      desc_ar:'حيوانات، فواكه، ومركبات لتلوينها بمرح.', desc_en:'Animals, fruits, and vehicles to color happily.',
+      cover:'', url:'https://herewe.gumroad.com/l/coloringbook2' },
+    { title_ar:'تلوين الصغار 3', title_en:'Kids Coloring 3', price:'$19',
+      desc_ar:'مستوى متوسط مع تفاصيل أكثر تشويقًا.', desc_en:'Intermediate level with more exciting details.',
+      cover:'', url:'https://herewe.gumroad.com/l/colorinbook3' }
+  ],
+  adults: [
+    { title_ar:'تلوين الكبار 1', title_en:'Adult Coloring 1', price:'$20',
+      desc_ar:'ماندالا وأنماط هندسية للاسترخاء.', desc_en:'Mandalas and geometric patterns to relax.',
+      cover:'assets/cover-adult-kids.png', url:'https://herewe.gumroad.com/l/coloringbook1' },
+    { title_ar:'تلوين الكبار 2', title_en:'Adult Coloring 2', price:'$22',
+      desc_ar:'زخارف إسلامية وتفاصيل دقيقة.', desc_en:'Islamic ornaments and fine details.',
+      cover:'', url:'https://herewe.gumroad.com/l/coloringbook2' },
+    { title_ar:'تلوين الكبار 3', title_en:'Adult Coloring 3', price:'$24',
+      desc_ar:'طبيعة ومناظر هادئة بأسلوب فني.', desc_en:'Nature and calm scenes in artistic style.',
+      cover:'', url:'https://herewe.gumroad.com/l/colorinbook3' }
+  ],
+  digital: [
+    { title_ar:'من فكرة إلى بيع منتج رقمي', title_en:'From Idea to First Sale', price:'$20',
+      desc_ar:'دليل عملي من الفكرة إلى Gumroad والتسويق.', desc_en:'Practical guide from idea to Gumroad and marketing.',
+      cover:'assets/guide-idea-to-sale.png', url:'https://herewe.gumroad.com/l/digitalbook' }
+  ]
+};
+
+/* ============================================================
+   3. ✅ جديد: بناء البطاقات ديناميكيًا
+============================================================ */
+function cardHTML(b, i, group){
+  var lang = document.documentElement.lang || 'ar';
+  var title = lang === 'ar' ? b.title_ar : b.title_en;
+  var desc  = lang === 'ar' ? b.desc_ar  : b.desc_en;
+  var cover = b.cover
+    ? '<img src="' + b.cover + '" alt="' + title + '" onerror="this.outerHTML=\'<div class=&quot;slot&quot;>ضع صورة الغلاف هنا</div>\'">'
+    : '<div class="slot">ضع صورة الغلاف هنا</div>';
+  return '<article class="card">' +
+    '<div class="cover">' + cover + '<span class="tag">DIGITAL</span></div>' +
+    '<div class="info">' +
+      '<div class="row"><h3>' + title + '</h3><span class="price">' + b.price + '</span></div>' +
+      '<p>' + desc + '</p>' +
+      '<div class="btns">' +
+        '<a class="buy" href="' + b.url + '" target="_blank" rel="noopener" data-i18n="buy">شاهد المنتج واشترِ ↗</a>' +
+        '<button class="prev" data-group="' + group + '" data-i="' + i + '" data-i18n="preview">معاينة صفحات من الكتاب</button>' +
+      '</div>' +
+    '</div>' +
+  '</article>';
+}
+
+function renderGrids(){
+  var map = { kids:'gridKids', adults:'gridAdults', digital:'gridDigital' };
+  Object.keys(map).forEach(function(g){
+    var el = document.getElementById(map[g]);
+    if(!el) return;
+    el.innerHTML = BOOKS[g].map(function(b,i){ return cardHTML(b,i,g); }).join('');
+  });
+  bindPreviewButtons();
+}
+
+/* ============================================================
+   4. الترجمة (مع إضافة الكلمات الجديدة)
 ============================================================ */
 var EN = {
   navHome:"Home",navBooks:"Books",navKids:"Kids Coloring",navAdults:"Adult Coloring",
@@ -124,12 +125,15 @@ var EN = {
   ctaPrimary:"See the collection ↓",ctaSecondary:"How buying works",
   trust1:"Instant download after payment",trust2:"Secure checkout on Gumroad",trust3:"Print-ready PDF file",
   noteA:"Take a break",noteB:"and color something beautiful.",
+  collection:"Digital products",
+  booksH2a:"Practical",booksH2b:"guides.",
+  booksP:"A practical guide that walks you step by step from idea to building a digital product and selling it on Gumroad.",
   kidsEyebrow:"For little artists",kidsH2a:"Coloring books for",kidsH2b:"kids.",
   kidsP:"Simple, joyful drawings with easy levels, specially designed for children's hands and imagination.",
   adultsEyebrow:"Relax & create",adultsH2a:"Coloring books for",adultsH2b:"adults.",
   adultsP:"Rich details, mandalas, and ornaments that take you to a world of calm and focus away from the noise.",
-  digitalEyebrow:"Digital products",digitalH2a:"Practical",digitalH2b:"guides.",
-  digitalP:"A practical guide that walks you step by step from idea to building a digital product and selling it on Gumroad.",
+  buy:"View product & buy ↗",preview:"Preview pages inside",
+  coverSlot:"Drop the cover image here",
   howEyebrow:"How it works",
   howH2:"Three steps between choosing a book and coloring your first page.",
   step1t:"Choose your book",step1d:"Browse the collection and preview pages from inside before you buy.",
@@ -141,12 +145,15 @@ var EN = {
   previewEyebrow:"Inside the book",
   previewNote:"Sample pages from the book. Drop real page images here to build buyer confidence.",
   slot1:"Sample page 1",slot2:"Sample page 2",slot3:"Sample page 3",
-  buy:"View product & buy ↗",preview:"Preview pages inside"
+  b0t:"Coloring Book 1",b0d:"Varied drawings with easy and more challenging levels.",
+  b1t:"Coloring Book 2",b1d:"Creative time for anyone who wants to color or relax.",
+  b2t:"Coloring Book 3",b2d:"Open it at home, while travelling, or whenever you have a free moment.",
+  b3t:"From Idea to First Sale",b3d:"A practical guide from idea to building the product, Gumroad, and marketing."
 };
 var AR = {};
 document.querySelectorAll('[data-i18n]').forEach(function(el){ AR[el.dataset.i18n] = el.innerHTML; });
 
-function setLang(lang){
+function applyLang(lang){
   var html = document.documentElement;
   html.lang = lang; html.dir = lang === 'ar' ? 'rtl' : 'ltr';
   var dict = lang === 'ar' ? AR : EN;
@@ -154,14 +161,18 @@ function setLang(lang){
     var v = dict[el.dataset.i18n];
     if (v !== undefined) el.innerHTML = v;
   });
-  document.getElementById('lang').textContent = lang === 'ar' ? 'EN' : 'ع';
+  var btn = document.getElementById('lang');
+  if(btn) btn.textContent = lang === 'ar' ? 'EN' : 'ع';
+}
+
+function setLang(lang){
+  applyLang(lang);
   try { localStorage.setItem('herewe-lang', lang); } catch(e){}
-  renderGrids(); // لإعادة رسم البطاقات بلغة جديدة
+  renderGrids();
 }
 
 var saved = 'ar';
 try { saved = localStorage.getItem('herewe-lang') || 'ar'; } catch(e){}
-if (saved === 'en') setLang('en');
 document.getElementById('lang').addEventListener('click', function(){
   setLang(document.documentElement.lang === 'ar' ? 'en' : 'ar');
 });
@@ -197,6 +208,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 });
 
 /* ============================================================
-   7. التشغيل الأولي
+   7. التشغيل
 ============================================================ */
-document.addEventListener('DOMContentLoaded', renderGrids);
+renderGrids();
+if (saved === 'en') setLang('en');
