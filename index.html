@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Color Your World — متجر كتب تلوين</title>
+<meta name="description" content="متجر كتب تلوين رقمية للكبار والأطفال. أطلق عنان إبداعك بالألوان — تحميل فوري بصيغة PDF جاهزة للطباعة.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ طبقات الخلفية المتحركة ============ -->
+<!-- 1. محرك السوائل WebGL: يظهر فورًا ويتفاعل مع الماوس، ويغطي زمن تحميل الفيديو -->
+<canvas id="fluid" aria-hidden="true"></canvas>
+
+<!-- 2. فيديو الألوان: بلا src في الـ HTML — يُحمَّل من script.js بعد أول رسم فقط،
+     فلا يكلّف الزيارة الأولى أي بايت ولا يؤخّر ظهور الصفحة. -->
+<div class="bg-video" aria-hidden="true">
+  <video id="bgvid" muted loop playsinline preload="none" disablepictureinpicture></video>
+  <div class="bg-video-veil"></div>
+</div>
+
+<!-- 3. التدرجات المبتكرة: كتل لونية ضبابية تدور ببطء -->
+<div class="mesh" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <span class="blob b4"></span>
+</div>
+
+<!-- 4. المؤشر السائل: أثر لوني يتلاشى خلال ثانية -->
+<div id="trail" aria-hidden="true"></div>
+
+<a class="skip" href="#books">تخطَّ إلى الكتب</a>
+
+<!-- ============ شريط التنقل الزجاجي ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-pill">
+    <a class="brand" href="#top">
+      <span class="brand-dot" aria-hidden="true"></span>
+      <span class="brand-name" data-i18n="brand">ديجيتال بوكس</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <span class="nav-ind" id="nav-ind" aria-hidden="true"></span>
+      <li><a class="nav-link is-active" href="#top" data-i18n="navHome">الرئيسية</a></li>
+      <li><a class="nav-link" href="#books" data-i18n="navBooks">الكتب</a></li>
+      <li><a class="nav-link" href="#studio" data-i18n="navStudio">جرّب التلوين</a></li>
+      <li><a class="nav-link" href="#about" data-i18n="navAbout">عن المتجر</a></li>
+      <li><a class="nav-link" href="#catalogue" data-i18n="navCatalogue">طلب كتالوج</a></li>
+    </ul>
+    <button class="lang" id="lang" type="button" aria-label="Switch language">EN</button>
+    <button class="burger" id="burger" type="button" aria-label="القائمة" aria-expanded="false" aria-controls="nav-links">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ الواجهة الرئيسية ============ -->
+<header class="hero" id="top">
+  <h1 class="hero-display" data-parallax="0.06">
+    <span class="line">Color</span>
+    <span class="line">Your World</span>
+  </h1>
+
+  <div class="hero-card glass" data-parallax="-0.05">
+    <p class="hero-kicker" data-i18n="heroKicker">متجر كتب تلوين</p>
+    <p class="hero-title" data-i18n="heroTitle">أطلق عنان <em>إبداعك</em> بالألوان</p>
+    <p class="hero-sub" data-i18n="heroSub">تجربة تلوين فاخرة ومختارة</p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#books" data-i18n="heroBtn1">استكشف المجموعة</a>
+      <a class="btn btn-ghost" href="#studio" data-i18n="heroBtn2">جرّب التلوين</a>
+    </div>
+  </div>
+
+  <!-- الأغلفة الحقيقية في مروحة ثلاثية الأبعاد، تميل مع المؤشر -->
+  <div class="showcase" id="showcase" data-parallax="-0.10">
+    <figure class="hb hb-a">
+      <img src="assets/cover-kids.webp" width="640" height="640" alt="" decoding="async">
+    </figure>
+    <figure class="hb hb-b">
+      <img src="assets/cover-adult-kids.webp" width="640" height="640" alt="" decoding="async" fetchpriority="high">
+    </figure>
+    <figure class="hb hb-c">
+      <img src="assets/guide-idea-to-sale.webp" width="640" height="640" alt="" decoding="async">
+    </figure>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span></span>
+  </div>
+
+  <ul class="trust" data-i18n-list>
+    <li data-i18n="t1">تحميل فوري بعد الدفع</li>
+    <li data-i18n="t2">دفع آمن عبر Gumroad</li>
+    <li data-i18n="t3">ملف PDF جاهز للطباعة</li>
+  </ul>
+</header>
+
+<!-- ============ شبكة الكتب ============ -->
+<section class="section" id="books">
+  <div class="section-head reveal">
+    <p class="eyebrow" data-i18n="booksEyebrow">المجموعة</p>
+    <h2 class="section-title" data-i18n="booksTitle">اختر كتابك المفضّل</h2>
+    <p class="section-sub" data-i18n="booksSub">مجموعة مصمّمة للحظات مختلفة: من التلوين والاسترخاء إلى تعلّم بناء منتج رقمي وبيعه.</p>
+  </div>
+  <div class="grid" id="grid"><!-- تُولَّد البطاقات من script.js --></div>
+</section>
+
+<!-- ============ استوديو التلوين التفاعلي ============ -->
+<section class="section" id="studio">
+  <div class="section-head reveal">
+    <p class="eyebrow" data-i18n="studioEyebrow">تجربة حيّة</p>
+    <h2 class="section-title" data-i18n="studioTitle">مرّر المؤشر… وشاهد الألوان تنتشر</h2>
+    <p class="section-sub" data-i18n="studioSub">تستقر الألوان داخل الخطوط السوداء مع حركة المؤشر، تمامًا كما لو كنت تلوّن الصفحة بيدك.</p>
+  </div>
+
+  <div class="studio glass reveal">
+    <!-- شريط الأدوات: الألوان وحجم الفرشاة -->
+    <div class="tools">
+      <div class="swatches" id="swatches">
+        <button class="sw sw-auto is-on" id="sw-auto" type="button"
+                aria-pressed="true" data-i18n-label="swAuto" aria-label="ألوان متعاقبة"></button>
+        <button class="sw sw-add" id="sw-add" type="button"
+                aria-expanded="false" aria-controls="picker"
+                data-i18n-label="swPick" aria-label="اختر لونًا">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v12M6 12h12"/></svg>
+        </button>
+      </div>
+
+      <div class="tools-row">
+      <label class="brush">
+        <span class="brush-cap" data-i18n="brushLabel">حجم الفرشاة</span>
+        <input id="brush" type="range" min="2" max="40" step="1" value="9"
+               data-i18n-label="brushLabel" aria-label="حجم الفرشاة">
+        <span class="brush-dot" id="brush-dot" aria-hidden="true"></span>
+      </label>
+
+      <button class="art-clear" id="art-clear" type="button" data-i18n="artClear">امسح الألوان</button>
+      </div>
+    </div>
+
+    <!-- منتقي الألوان -->
+    <div class="picker" id="picker" hidden>
+      <p class="picker-title" data-i18n="pickTitle">لون صلب</p>
+
+      <div class="sv" id="sv" role="application" aria-label="التشبّع والإضاءة">
+        <span class="sv-dot" id="sv-dot"></span>
+      </div>
+
+      <label class="sr-only" for="hue" data-i18n="pickHue">درجة اللون</label>
+      <input class="hue" id="hue" type="range" min="0" max="360" step="1" value="340">
+
+      <div class="picker-foot">
+        <span class="pv" id="pv" aria-hidden="true"></span>
+        <label class="sr-only" for="hex" data-i18n="pickHex">القيمة السداسية</label>
+        <input class="hex" id="hex" type="text" value="#FF6B9D" spellcheck="false"
+               autocomplete="off" maxlength="7">
+      </div>
+    </div>
+
+    <!-- مسرح التلوين: طبقة الألوان تحت، والخطوط شفافة الخلفية فوقها -->
+    <div class="art-stage" id="stage">
+      <div class="art-paint" id="paint"></div>
+      <img class="art-lines" src="assets/coloring-balcony.png"
+           width="1000" height="1294" loading="lazy" decoding="async"
+           alt="رسمة شرفة هادئة فيها كرسي وأصص نباتات وفانوس وطاولة صغيرة، جاهزة للتلوين"
+           data-i18n-alt="artAlt">
+    </div>
+
+    <div class="studio-foot">
+      <p class="hint" data-i18n="artHint">اضغط واسحب فوق الرسمة لتلوينها</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ عن المتجر ============ -->
+<section class="section narrow" id="about">
+  <div class="section-head reveal">
+    <p class="eyebrow" data-i18n="aboutEyebrow">أكثر من مجرد كتاب</p>
+    <h2 class="section-title" data-i18n="aboutTitle">اصنع لحظتك الخاصة</h2>
+  </div>
+  <div class="features">
+    <article class="feature glass reveal">
+      <h3 data-i18n="f1t">للكبار والأطفال</h3>
+      <p data-i18n="f1d">مستويات بسيطة وأخرى أكثر تحديًا، لتناسب وقتك ومزاجك.</p>
+    </article>
+    <article class="feature glass reveal">
+      <h3 data-i18n="f2t">في أي مكان</h3>
+      <p data-i18n="f2d">في البيت، أثناء السفر، في المقهى، أو في لحظات الانتظار.</p>
+    </article>
+    <article class="feature glass reveal">
+      <h3 data-i18n="f3t">وقت بعيد عن الشاشات</h3>
+      <p data-i18n="f3d">نشاط هادئ وإبداعي حين ترغب في تغيير الروتين.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ طلب كتالوج ============ -->
+<section class="section narrow" id="catalogue">
+  <div class="cta-card glass reveal">
+    <h2 class="section-title" data-i18n="catTitle">اطلب الكتالوج الكامل</h2>
+    <p class="section-sub" data-i18n="catSub">اترك بريدك وسنرسل لك المجموعة كاملة مع الصفحات النموذجية.</p>
+    <form class="cat-form" id="cat-form" novalidate>
+      <label class="sr-only" for="cat-email" data-i18n="catLabel">البريد الإلكتروني</label>
+      <input id="cat-email" name="email" type="email" required autocomplete="email" placeholder="name@example.com">
+      <button class="btn btn-solid" type="submit" data-i18n="catBtn">أرسل لي الكتالوج</button>
+    </form>
+    <p class="form-note" id="cat-note" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<footer class="footer">
+  <span class="brand"><span class="brand-dot" aria-hidden="true"></span><span data-i18n="brand">ديجيتال بوكس</span></span>
+  <small data-i18n="rights">© 2026 جميع الحقوق محفوظة.</small>
+</footer>
+
+<!-- ============ صفحة المنتج (انتقال العناصر المشتركة) ============ -->
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-scrim" data-close></div>
+  <article class="sheet-panel glass" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <button class="sheet-close" type="button" data-close aria-label="إغلاق">&times;</button>
+    <div class="sheet-cover" id="sheet-cover"></div>
+    <div class="sheet-body">
+      <p class="eyebrow" id="sheet-eyebrow"></p>
+      <h2 class="sheet-title" id="sheet-title"></h2>
+      <p class="sheet-desc" id="sheet-desc"></p>
+      <p class="sheet-price" id="sheet-price"></p>
+      <a class="btn btn-solid" id="sheet-buy" href="#" target="_blank" rel="noopener" data-i18n="buyNow">شراء الآن ↗</a>
+    </div>
+  </article>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>
